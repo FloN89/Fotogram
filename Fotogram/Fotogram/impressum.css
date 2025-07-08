@@ -1,0 +1,59 @@
+body, html {
+    background-image: url("img/Background-img.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;  
+    color: rgb(156, 156, 8);
+}
+h1 {
+    font-size: 56px;
+}
+h2 {
+    font-size: 38px;
+}
+p {
+    font-size: 36px;
+    text-align: center;
+}
+.header {
+    display: flex;
+    justify-content: start;
+    width: 250px;
+    height: auto;
+    padding-top: 30px;
+    padding-left: 30px;
+}
+.main {
+    height: 1250px;
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.main a {
+    text-decoration: none;
+    color: black;
+}
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    
+}
+.footer img{
+    width: 30px;
+    height: 30px;
+    padding-left: 30px;
+    padding-top: 30px;
+}
+.footer a {
+    display: inline;
+    text-decoration: none;
+    padding-right: 30px;
+    color: rgb(156, 156, 8);
+    font-size: 26px;
+    font-weight: 600;
+    
+}

@@ -1,0 +1,76 @@
+body, html {
+    background-image: url("img/Background-img.jpg");
+    background-position: center;
+
+    background-size: 1500px;  
+}
+.header {
+    display: flex;
+    justify-content: start;
+    width: 250px;
+    height: auto;
+    padding-top: 30px;
+    padding-left: 30px;
+}
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px; 
+    margin: 20px;  
+    
+}
+.main-content img {
+    display: flex; 
+    width: 280px;
+    height: 280px;
+    margin: 20px;
+    
+
+}
+.box-one img {
+    display: flex;  
+    margin: 20px;
+    border-radius: 8px;
+}
+.box-two img {
+    display: flex;  
+    margin: 20px;
+    border-radius: 8px;
+    
+}
+.box-three img {
+    display: flex;  
+    margin: 20px;
+    border-radius: 8px;
+    
+
+}
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+.footer-img { 
+    display: flex;
+    width: 50px;
+    height: 50px;
+    padding-left: 30px;
+    padding-top: 50px;
+    image-rendering: auto;
+    
+
+}
+.footer-links {
+    display: flex;
+    gap: 20px;
+    padding-top: 50px;
+    padding-right: 30px;
+}
+.footer-links a {
+    text-decoration: none;
+    color: rgb(55, 102, 32);
+    font-size: 26px;
+    font-weight: 600;
+}
