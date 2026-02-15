@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fotogram</title>
-    <link rel="icon" type="image/x-icon" href="img/favicon.svg">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fotogram</title>
+
+  <link rel="icon" type="image/x-icon" href="img/favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body onload="init()">
-     <header class="header">
-             <img src="img/Fotogram_Logo.svg"> 
-     </header>
-            <div id="allImgs"></div>
-            <div id="content" onclick="stopPropagation()">
-    <footer class="footer-img">
-        <img src="img/favicon.png">  
-    </footer>   
-        <script src="script.js"></script>
+
+<body>
+  <!-- Kopfbereich -->
+  <header class="header">
+    <img src="img/Fotogram_Logo.svg" alt="Fotogram Logo" />
+  </header>
+
+  <!-- Galerie -->
+  <main id="allImgs" aria-label="Bildergalerie"></main>
+
+  <!-- Overlay / Modal (anfangs versteckt) -->
+  <div id="overlay" class="d_none" aria-hidden="true"></div>
+
+  <!-- Fußbereich -->
+ <footer class="footer">
+  <img src="img/favicon.png" alt="Fotogram Icon" />
+</footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

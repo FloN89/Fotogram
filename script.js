@@ -1,78 +1,109 @@
-let images = [
-`<img src="img/owl-8001879_1280.jpg">`,
-`<img src="img/waterfall-8350178_1280.jpg">`,
-`<img src="img/nature-3771378_1280.jpg">`,
-`<img src="img/dragonfly-7975259_1280.jpg">`,
-`<img src="img/mountains-7863214_1280.jpg">`,
-`<img src="img/mountains-8123933_1280.jpg">`,
-`<img src="img/pier-8091934_1280.jpg">`,
-`<img src="img/frog-8159829_1280.jpg">`,
-`<img src="img/white-faced-heron-7469267_1280.jpg">`,
-`<img src="img/sheep-7934078_1280.jpg">`,
-`<img src="img/chipmunk-6733055_1280.jpg">`,
-`<img src="img/fox-8308116_1280.jpg">`,                
- ]    
-function init() {
-    let contentRef = document.getElementById("allImgs");
-    contentRef.innerHTML = "";
-    for (let index = 0; index < images.length; index++) {
-        contentRef.innerHTML += template(index);
-    }
+/* Fotogram – einfache Galerie mit Overlay */
+
+const images = [
+  "img/owl-8001879_1280.jpg",
+  "img/waterfall-8350178_1280.jpg",
+  "img/nature-3771378_1280.jpg",
+  "img/dragonfly-7975259_1280.jpg",
+  "img/mountains-7863214_1280.jpg",
+  "img/mountains-8123933_1280.jpg",
+  "img/pier-8091934_1280.jpg",
+  "img/frog-8159829_1280.jpg",
+  "img/white-faced-heron-7469267_1280.jpg",
+  "img/sheep-7934078_1280.jpg",
+  "img/chipmunk-6733055_1280.jpg",
+  "img/fox-8308116_1280.jpg",
+];
+
+let currentIndex = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderGallery();
+  bindOverlayClose();
+});
+
+function renderGallery() {
+  const gallery = document.getElementById("allImgs");
+  gallery.innerHTML = "";
+  images.forEach((src, index) => gallery.appendChild(createThumb(src, index)));
 }
-function template(index) {
-    return `<div class="smallImg" onclick="bigImg(${index})" onclick="addOverlayImg()">
-                ${images[index]}
-            </div>`
+
+function createThumb(src, index) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "smallImg";
+  wrapper.addEventListener("click", () => openOverlay(index));
+
+  const img = document.createElement("img");
+  img.src = src;
+  img.alt = `Galeriebild ${index + 1}`;
+  wrapper.appendChild(img);
+  return wrapper;
 }
-function bigImg(index) {
-    let contentRef = document.getElementById("content");
-    contentRef.innerHTML = "";
-    contentRef.innerHTML += imagesRender(index);
-    addOverlayImg();
+
+function openOverlay(index) {
+  currentIndex = index;
+  const overlay = document.getElementById("overlay");
+  overlay.classList.remove("d_none");
+  overlay.setAttribute("aria-hidden", "false");
+  overlay.innerHTML = createOverlayHtml();
+  bindOverlayControls();
 }
-function nextImage(index) {
-    index++; 
-    let contentRef = document.getElementById("content");
-    contentRef.innerHTML = "";   
-    if (index >= images.length) {
-        index = 0;
-    } 
-    contentRef.innerHTML += imagesRender(index);
+
+function closeOverlay() {
+  const overlay = document.getElementById("overlay");
+  overlay.classList.add("d_none");
+  overlay.setAttribute("aria-hidden", "true");
+  overlay.innerHTML = "";
 }
-function prevImage(index) {
-    index--;
-    let contentRef = document.getElementById("content");
-    contentRef.innerHTML = "";
-    if (index < 0) {
-        index = images.length - 1;
-    }
-    contentRef.innerHTML += imagesRender(index);
+
+function showNext() {
+  currentIndex = (currentIndex + 1) % images.length;
+  refreshOverlay();
 }
-function toggleOverlayImg() {
-    let overlayRef = document.getElementById("allImgs")
-    overlayRef.classList.toggle("d_none")
+
+function showPrev() {
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  refreshOverlay();
 }
-function removeOverlayImg() {
-    let overlayRef = document.getElementById("content")
-    overlayRef.classList.add("d_none")
+
+function refreshOverlay() {
+  const overlay = document.getElementById("overlay");
+  overlay.innerHTML = createOverlayHtml();
+  bindOverlayControls();
 }
-function addOverlayImg() {
-    let overlayRef = document.getElementById("content")
-    overlayRef.classList.remove("d_none")
-    stopPropagation()
+
+function createOverlayHtml() {
+  return `
+    <div class="imagesRender">
+      <div class="imageBox" data-stop>
+        <img src="${images[currentIndex]}" alt="Großansicht ${currentIndex + 1}" />
+        <p>${currentIndex + 1} / ${images.length}</p>
+        <div class="navButtons">
+          <button id="prevBtn" type="button" aria-label="Vorheriges Bild">
+            <img src="img/green-2304005_1280.png" alt="" />
+          </button>
+          <button id="nextBtn" type="button" aria-label="Nächstes Bild">
+            <img src="img/green-2304007_1280.png" alt="" />
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
 }
-function imagesRender(index) {
-    return `<div class="imagesRender" onclick="removeOverlayImg()">
-                <div class="imageBox">
-                    ${images[index]}
-                    <p>${index + 1} / ${images.length}</p>
-                    <div>
-                        <button onclick="prevImage(${index}),stopPropagation()"><img src="img/green-2304005_1280.png"></button>
-                        <button onclick="nextImage(${index}),stopPropagation()"><img src="img/green-2304007_1280.png"></button>
-                    </div>
-                </div>
-            </div>`
+
+function bindOverlayControls() {
+  document.getElementById("prevBtn").addEventListener("click", stopAnd(showPrev));
+  document.getElementById("nextBtn").addEventListener("click", stopAnd(showNext));
+  document.querySelector("[data-stop]").addEventListener("click", (e) => e.stopPropagation());
 }
-function stopPropagation() {
-   event.stopPropagation()
+
+function bindOverlayClose() {
+  document.getElementById("overlay").addEventListener("click", closeOverlay);
+}
+
+function stopAnd(action) {
+  return (event) => {
+    event.stopPropagation();
+    action();
+  };
 }
